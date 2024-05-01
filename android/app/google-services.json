@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "352323073281",
+    "project_id": "rihla-db4be",
+    "storage_bucket": "rihla-db4be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:352323073281:android:cebd77cc9be522f0cc5700",
+        "android_client_info": {
+          "package_name": "com.example.rihla"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlJnGalKT4e-bMbMweQ76Gb1BZAy15uiI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

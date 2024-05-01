@@ -41,53 +41,47 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCdEs_TW_bCCl8Y_Cn-OqApJVyFSCYdCs4',
-    appId: '1:787651827255:web:f77e650d429963477e91b2',
-    messagingSenderId: '787651827255',
-    projectId: 'rihla-fe9aa',
-    authDomain: 'rihla-fe9aa.firebaseapp.com',
-    databaseURL: 'https://rihla-fe9aa-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'rihla-fe9aa.appspot.com',
-    measurementId: 'G-XHBHER8E82',
+    apiKey: 'AIzaSyB3eUwojHEcKwEMU5r4xtw0F5IHoMacPYo',
+    appId: '1:352323073281:web:e0cadacefc19e005cc5700',
+    messagingSenderId: '352323073281',
+    projectId: 'rihla-db4be',
+    authDomain: 'rihla-db4be.firebaseapp.com',
+    storageBucket: 'rihla-db4be.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyADDO5zcf0L-xsabPWNYzOhwDEfjMXK84o',
-    appId: '1:787651827255:android:b7c52c49fda2d12f7e91b2',
-    messagingSenderId: '787651827255',
-    projectId: 'rihla-fe9aa',
-    databaseURL: 'https://rihla-fe9aa-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'rihla-fe9aa.appspot.com',
+    apiKey: 'AIzaSyBlJnGalKT4e-bMbMweQ76Gb1BZAy15uiI',
+    appId: '1:352323073281:android:cebd77cc9be522f0cc5700',
+    messagingSenderId: '352323073281',
+    projectId: 'rihla-db4be',
+    storageBucket: 'rihla-db4be.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBV0ylvr_z6gZKLVl61xSOiTjXOfMKPH9o',
-    appId: '1:787651827255:ios:bcc9fed5c3d7972a7e91b2',
-    messagingSenderId: '787651827255',
-    projectId: 'rihla-fe9aa',
-    databaseURL: 'https://rihla-fe9aa-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'rihla-fe9aa.appspot.com',
+    apiKey: 'AIzaSyDpVBhS7tDGjjuFug3RuM_9PZUJCGwmEoE',
+    appId: '1:352323073281:ios:e38ebbd2646fca87cc5700',
+    messagingSenderId: '352323073281',
+    projectId: 'rihla-db4be',
+    storageBucket: 'rihla-db4be.appspot.com',
     iosBundleId: 'com.example.rihla',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBV0ylvr_z6gZKLVl61xSOiTjXOfMKPH9o',
-    appId: '1:787651827255:ios:bcc9fed5c3d7972a7e91b2',
-    messagingSenderId: '787651827255',
-    projectId: 'rihla-fe9aa',
-    databaseURL: 'https://rihla-fe9aa-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'rihla-fe9aa.appspot.com',
+    apiKey: 'AIzaSyDpVBhS7tDGjjuFug3RuM_9PZUJCGwmEoE',
+    appId: '1:352323073281:ios:e38ebbd2646fca87cc5700',
+    messagingSenderId: '352323073281',
+    projectId: 'rihla-db4be',
+    storageBucket: 'rihla-db4be.appspot.com',
     iosBundleId: 'com.example.rihla',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyCdEs_TW_bCCl8Y_Cn-OqApJVyFSCYdCs4',
-    appId: '1:787651827255:web:614babc0434f0de47e91b2',
-    messagingSenderId: '787651827255',
-    projectId: 'rihla-fe9aa',
-    authDomain: 'rihla-fe9aa.firebaseapp.com',
-    databaseURL: 'https://rihla-fe9aa-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'rihla-fe9aa.appspot.com',
-    measurementId: 'G-QXKZW72X2V',
+    apiKey: 'AIzaSyB3eUwojHEcKwEMU5r4xtw0F5IHoMacPYo',
+    appId: '1:352323073281:web:68de3b559ed47180cc5700',
+    messagingSenderId: '352323073281',
+    projectId: 'rihla-db4be',
+    authDomain: 'rihla-db4be.firebaseapp.com',
+    storageBucket: 'rihla-db4be.appspot.com',
   );
+
 }
