@@ -96,7 +96,7 @@ class LoginScreen extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 17,
-                        color: Color(0xff281537),
+                        color: Color(0xFF341359),
                       ),
                     ),
                   ),
@@ -109,8 +109,8 @@ class LoginScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       gradient: const LinearGradient(colors: [
-                        Color(0xffB81736),
-                        Color(0xff281537),
+                        Color(0xFF5D427A),
+                        Color(0xFF341359),
                       ]),
                     ),
                     child: const Center(
@@ -140,11 +140,9 @@ class LoginScreen extends StatelessWidget {
                         Text(
                           "Sign up",
                           style: TextStyle(
-
-                              ///done login page
                               fontWeight: FontWeight.bold,
                               fontSize: 17,
-                              color: Colors.black),
+                              color: Color(0xFF341359)),
                         ),
                       ],
                     ),
