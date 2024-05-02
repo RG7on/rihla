@@ -66,27 +66,14 @@ class _LoginScreenState extends State<LoginScreen> {
             ]),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Image(
-                  image: AssetImage('assets/logo.png'),
-                  width: 151,
-                  height: 151,
-                ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Text(
-                    'Hello\nSign in!',
-                    style: GoogleFonts.robotoCondensed(
-                      fontSize: 40,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
+            padding: const EdgeInsets.only(top: 30.0, left: 22),
+            child: Text(
+              'Hello\nSign in!',
+              style: GoogleFonts.robotoCondensed(
+                fontSize: 45,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -99,114 +86,112 @@ class _LoginScreenState extends State<LoginScreen> {
               color: Colors.white,
             ),
             child: Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                          suffixIcon: Icon(Icons.email, color: Colors.grey),
-                          label: Text(
-                            'Email',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xffB81736),
-                            ),
-                          )),
-                    ),
-                    TextField(
-                      controller: _passwordController,
-                      obscureText: _obscurePassword,
-                      decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                                _obscurePassword
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: Colors.grey),
-                            onPressed: () {
-                              setState(() {
-                                _obscurePassword = !_obscurePassword;
-                              });
-                            },
-                          ),
-                          label: const Text(
-                            'Password',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xffB81736),
-                            ),
-                          )),
-                    ),
-                    const SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: _navigateToForgotPassword,
-                      child: const Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'Forgot Password?',
+              padding: const EdgeInsets.fromLTRB(18, 10, 18, 100),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                        suffixIcon: Icon(Icons.email, color: Colors.grey),
+                        label: Text(
+                          'Email',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                            color: Color(0xFF341359),
+                            color: Color(0xffB81736),
                           ),
+                        )),
+                  ),
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: _obscurePassword,
+                    decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                              _obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.grey),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                        ),
+                        label: const Text(
+                          'Password',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xffB81736),
+                          ),
+                        )),
+                  ),
+                  const SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: _navigateToForgotPassword,
+                    child: const Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                          color: Color(0xFF341359),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 70),
-                    GestureDetector(
-                      onTap: _signIn,
-                      child: Container(
-                        height: 55,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          gradient: const LinearGradient(colors: [
-                            Color(0xFF5D427A),
-                            Color(0xFF341359),
-                          ]),
+                  ),
+                  const SizedBox(height: 70),
+                  GestureDetector(
+                    onTap: _signIn,
+                    child: Container(
+                      height: 55,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        gradient: const LinearGradient(colors: [
+                          Color(0xFF5D427A),
+                          Color(0xFF341359),
+                        ]),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'SIGN IN',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white),
                         ),
-                        child: const Center(
-                          child: Text(
-                            'SIGN IN',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 150),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: GestureDetector(
+                      onTap: _navigateToSignUp,
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Don't have an account?",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.white),
+                                color: Colors.grey),
                           ),
-                        ),
+                          Text(
+                            "Sign up",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
+                                color: Color(0xFF341359)),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 150),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: GestureDetector(
-                        onTap: _navigateToSignUp,
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Don't have an account?",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey),
-                            ),
-                            Text(
-                              "Sign up",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                  color: Color(0xFF341359)),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
             ),
           ),

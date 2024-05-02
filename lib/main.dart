@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rihla/firebase_options.dart';
 import 'package:rihla/forgot_pass.dart';
+import 'package:rihla/home_screen.dart';
 import 'package:rihla/reg_screen.dart';
 import 'welcome_screen.dart';
-import 'login_screen.dart'; 
+import 'login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
       home: const WelcomeScreen(),
       routes: {
         '/welcome': (context) => const WelcomeScreen(),
+        '/home': (context) => const HomeScreen(),
         '/login': (context) => const LoginScreen(),
         '/forgot-password': (context) => const ForgotPasswordScreen(),
         '/register': (context) => const RegScreen(),
