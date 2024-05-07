@@ -94,13 +94,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: _emailController,
                     decoration: const InputDecoration(
                         suffixIcon: Icon(Icons.email, color: Colors.grey),
-                        label: Text(
+                        label: 
+                        Opacity(opacity: 0.4,child:Text(
                           'Email',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffB81736),
+                            color: Color.fromARGB(255, 137, 130, 130),
                           ),
-                        )),
+                        )),)
+,
                   ),
                   TextField(
                     controller: _passwordController,
@@ -118,13 +120,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           },
                         ),
-                        label: const Text(
+                        label: 
+                        Opacity(opacity: 0.4,child:Text(
                           'Password',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffB81736),
+                            color: Color.fromARGB(255, 137, 130, 130),
                           ),
-                        )),
+                        )) ,)
+                         ,
                   ),
                   const SizedBox(height: 20),
                   GestureDetector(

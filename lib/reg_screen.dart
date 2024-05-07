@@ -103,25 +103,29 @@ class _RegScreenState extends State<RegScreen> {
                       controller: _nameController,
                       decoration: const InputDecoration(
                           suffixIcon: Icon(Icons.person, color: Colors.grey),
-                          label: Text(
+                          label: 
+                          Opacity(opacity: 0.4,child:Text(
                             'Full Name',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color(0xffB81736),
+                              color: Color.fromARGB(255, 137, 130, 130),
                             ),
-                          )),
+                          )),)
+                          ,
                     ),
                     TextField(
                       controller: _emailController,
                       decoration: const InputDecoration(
                           suffixIcon: Icon(Icons.email, color: Colors.grey),
-                          label: Text(
+                          label: 
+                          Opacity(opacity: 0.4,child: Text(
                             'Email',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color(0xffB81736),
+                              color: Color.fromARGB(255, 137, 130, 130),
                             ),
-                          )),
+                          )),)
+                          ,
                     ),
                     TextField(
                       controller: _passwordController,
@@ -129,13 +133,15 @@ class _RegScreenState extends State<RegScreen> {
                       onChanged: (_) => _checkPasswordsMatch(),
                       decoration: const InputDecoration(
                           suffixIcon: Icon(Icons.lock, color: Colors.grey),
-                          label: Text(
+                          label: 
+                          Opacity(opacity: 0.4,child:Text(
                             'Password',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Color(0xffB81736),
+                              color: Color.fromARGB(255, 137, 130, 130),
                             ),
-                          )),
+                          )) ,)
+                          ,
                     ),
                     TextField(
                       controller: _confirmPasswordController,
@@ -146,14 +152,16 @@ class _RegScreenState extends State<RegScreen> {
                           _passwordsMatch ? Icons.check : Icons.close,
                           color: _passwordsMatch ? Colors.green : Colors.red,
                         ),
-                        label: const Text(
+                        label: 
+                         Opacity(opacity: 0.4,child:Text(
                           'Confirm Password',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffB81736),
+                            color: Color.fromARGB(255, 137, 130, 130),
                           ),
                         ),
-                      ),
+                      ) ,)
+                         ,
                     ),
                     const SizedBox(height: 50),
                     GestureDetector(
