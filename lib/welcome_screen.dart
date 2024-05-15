@@ -41,7 +41,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 80,
+            height: 50,
           ),
           Text(
             'Welcome Back',
@@ -106,7 +106,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 50,
+            height: 20,
           ),
           GestureDetector(
             onTap: () {
@@ -123,7 +123,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 45,
+            height: 25,
           ),
           Text(
             'Login with',
@@ -166,9 +166,6 @@ class WelcomeScreen extends StatelessWidget {
                     size: 35, color: Colors.white),
               ),
             ],
-          ),
-          const SizedBox(
-            height: 20,
           ),
         ]),
       ),

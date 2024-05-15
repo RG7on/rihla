@@ -153,7 +153,7 @@ class _RegScreenState extends State<RegScreen> {
                           color: _passwordsMatch ? Colors.green : Colors.red,
                         ),
                         label: 
-                         Opacity(opacity: 0.4,child:Text(
+                         const Opacity(opacity: 0.4,child:Text(
                           'Confirm Password',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
