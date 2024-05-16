@@ -41,7 +41,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 50,
+            height: 40,
           ),
           Text(
             'Welcome Back',
