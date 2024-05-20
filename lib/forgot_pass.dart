@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -11,11 +12,56 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
 
-  void _resetPassword() {
-    // Implement your password reset functionality here
-    // For now, we just print the email
-    print('Reset password email sent to: ${_emailController.text}');
-    // You should replace this with actual reset password logic
+  void _resetPassword() async {
+    String email = _emailController.text.trim();
+    if (email.isEmpty) {
+      _showSnackBar('Please enter your email address', Colors.red);
+      return;
+    }
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      // Showing a dialog instead of navigating directly can solve context issues
+      _showResetDialog();
+    } catch (e) {
+      _showSnackBar('Failed to send reset link: $e', Colors.red);
+    }
+  }
+
+  void _showResetDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        // Use dialogContext to clarify context scope
+        return AlertDialog(
+          title: Text('Reset Email Sent'),
+          content: Text(
+              'If your email is correct, you will receive a link to reset your password.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(dialogContext)
+                    .pop(); // Close the dialog with dialogContext
+
+                // After the dialog is closed, navigate to the login screen
+                // It's important to use the main BuildContext, not dialogContext here
+                Navigator.of(context).pushReplacementNamed('/login');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showSnackBar(String message, Color color) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: color,
+      ),
+    );
   }
 
   @override
