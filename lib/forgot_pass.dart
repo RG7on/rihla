@@ -41,11 +41,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             TextButton(
               child: Text('OK'),
               onPressed: () {
-                Navigator.of(dialogContext)
-                    .pop(); // Close the dialog with dialogContext
-
-                // After the dialog is closed, navigate to the login screen
-                // It's important to use the main BuildContext, not dialogContext here
+                Navigator.of(dialogContext).pop();
                 Navigator.of(context).pushReplacementNamed('/login');
               },
             ),
@@ -67,86 +63,73 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-      children: [
-        Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-              Color(0xFF5D427A),
-              Color(0xFF341359),
-            ]),
-          ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(colors: [
+            Color(0xFF5D427A),
+            Color(0xFF341359),
+          ]),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 100.0),
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-              color: Colors.white,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 60),
-                    Text(
-                      'Reset Password',
-                      style: GoogleFonts.robotoCondensed(
-                        fontSize: 28,
-                        color: Colors.deepPurple,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(18.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              width: 400, // Set a fixed width for the container
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Reset Password',
+                    style: GoogleFonts.robotoCondensed(
+                      fontSize: 28,
+                      color: Colors.deepPurple,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  TextField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      suffixIcon: Icon(Icons.email, color: Colors.grey),
+                      labelText: 'Enter your email',
+                      labelStyle: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Color(0xffB81736),
                       ),
                     ),
-                    const SizedBox(height: 30),
-                    TextField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                          suffixIcon: Icon(Icons.email, color: Colors.grey),
-                          label: Text(
-                            'Enter your email',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xffB81736),
-                            ),
-                          )),
-                    ),
-                    const SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: _resetPassword,
-                      child: Container(
-                        height: 55,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          gradient: const LinearGradient(colors: [
-                            Color(0xFF5D427A),
-                            Color(0xFF341359),
-                          ]),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'SEND RESET LINK',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.white),
-                          ),
-                        ),
+                  ),
+                  SizedBox(height: 40),
+                  ElevatedButton(
+                    onPressed: _resetPassword,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF5D427A),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    const SizedBox(height: 150),
-                  ],
-                ),
+                    child: Text(
+                      'SEND RESET LINK',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(height: 150),
+                ],
               ),
             ),
           ),
         ),
-      ],
-    ));
+      ),
+    );
   }
 }
