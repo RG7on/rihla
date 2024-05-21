@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rihla/drawer_widget.dart';
 import 'package:rihla/favorites_page.dart';
 import 'package:rihla/reviews_page.dart';
 
@@ -27,8 +28,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Profile'),
+        title: const Text("Profile"),
       ),
+      drawer: const AppDrawer(),
       body: StreamBuilder<DocumentSnapshot>(
         stream: _userStream,
         builder: (context, snapshot) {

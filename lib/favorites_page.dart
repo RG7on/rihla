@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rihla/drawer_widget.dart';
 import 'package:rihla/trip_details.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -28,8 +29,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Favorites'),
+        title: const Text("Favorites"),
       ),
+      drawer: const AppDrawer(),
       body: StreamBuilder<QuerySnapshot>(
         stream: _favoritesStream,
         builder: (context, snapshot) {

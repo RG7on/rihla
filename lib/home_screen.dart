@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rihla/drawer_widget.dart';
 import 'package:rihla/explore_trips_screen.dart';
 import 'package:rihla/trip_details.dart';
 
@@ -121,6 +122,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Serch"),
+      ),
+      drawer: const AppDrawer(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
