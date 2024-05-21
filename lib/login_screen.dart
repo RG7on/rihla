@@ -93,42 +93,44 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextField(
                     controller: _emailController,
                     decoration: const InputDecoration(
-                        suffixIcon: Icon(Icons.email, color: Colors.grey),
-                        label: 
-                        Opacity(opacity: 0.4,child:Text(
-                          'Email',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 137, 130, 130),
-                          ),
-                        )),)
-,
+                      suffixIcon: Icon(Icons.email, color: Colors.grey),
+                      label: Opacity(
+                          opacity: 0.4,
+                          child: Text(
+                            'Email',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 137, 130, 130),
+                            ),
+                          )),
+                    ),
                   ),
                   TextField(
                     controller: _passwordController,
                     obscureText: _obscurePassword,
                     decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                              _obscurePassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: Colors.grey),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                        ),
-                        label: 
-                        Opacity(opacity: 0.4,child:Text(
-                          'Password',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 137, 130, 130),
-                          ),
-                        )) ,)
-                         ,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                            _obscurePassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: Colors.grey),
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                      ),
+                      label: Opacity(
+                          opacity: 0.4,
+                          child: Text(
+                            'Password',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 137, 130, 130),
+                            ),
+                          )),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   GestureDetector(

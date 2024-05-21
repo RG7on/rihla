@@ -43,16 +43,18 @@ class _RegScreenState extends State<RegScreen> {
 
       if (userCredential.user != null) {
         await FirebaseFirestore.instance
-            .collection('users')
+            .collection('Users')
             .doc(userCredential.user!.uid)
             .set({
-          'name': _nameController.text.trim(),
+          'fullName': _nameController.text.trim(),
           'email': _emailController.text.trim(),
           'uid': userCredential.user!.uid,
         });
 
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
       }
     } catch (e) {
       print('Failed to register: $e');
@@ -102,46 +104,49 @@ class _RegScreenState extends State<RegScreen> {
                     TextField(
                       controller: _nameController,
                       decoration: const InputDecoration(
-                          suffixIcon: Icon(Icons.person, color: Colors.grey),
-                          label: 
-                          Opacity(opacity: 0.4,child:Text(
-                            'Full Name',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 137, 130, 130),
-                            ),
-                          )),)
-                          ,
+                        suffixIcon: Icon(Icons.person, color: Colors.grey),
+                        label: Opacity(
+                            opacity: 0.4,
+                            child: Text(
+                              'Full Name',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 137, 130, 130),
+                              ),
+                            )),
+                      ),
                     ),
                     TextField(
                       controller: _emailController,
                       decoration: const InputDecoration(
-                          suffixIcon: Icon(Icons.email, color: Colors.grey),
-                          label: 
-                          Opacity(opacity: 0.4,child: Text(
-                            'Email',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 137, 130, 130),
-                            ),
-                          )),)
-                          ,
+                        suffixIcon: Icon(Icons.email, color: Colors.grey),
+                        label: Opacity(
+                            opacity: 0.4,
+                            child: Text(
+                              'Email',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 137, 130, 130),
+                              ),
+                            )),
+                      ),
                     ),
                     TextField(
                       controller: _passwordController,
                       obscureText: true,
                       onChanged: (_) => _checkPasswordsMatch(),
                       decoration: const InputDecoration(
-                          suffixIcon: Icon(Icons.lock, color: Colors.grey),
-                          label: 
-                          Opacity(opacity: 0.4,child:Text(
-                            'Password',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 137, 130, 130),
-                            ),
-                          )) ,)
-                          ,
+                        suffixIcon: Icon(Icons.lock, color: Colors.grey),
+                        label: Opacity(
+                            opacity: 0.4,
+                            child: Text(
+                              'Password',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 137, 130, 130),
+                              ),
+                            )),
+                      ),
                     ),
                     TextField(
                       controller: _confirmPasswordController,
@@ -152,16 +157,17 @@ class _RegScreenState extends State<RegScreen> {
                           _passwordsMatch ? Icons.check : Icons.close,
                           color: _passwordsMatch ? Colors.green : Colors.red,
                         ),
-                        label: 
-                         const Opacity(opacity: 0.4,child:Text(
-                          'Confirm Password',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 137, 130, 130),
+                        label: const Opacity(
+                          opacity: 0.4,
+                          child: Text(
+                            'Confirm Password',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 137, 130, 130),
+                            ),
                           ),
                         ),
-                      ) ,)
-                         ,
+                      ),
                     ),
                     const SizedBox(height: 50),
                     GestureDetector(
