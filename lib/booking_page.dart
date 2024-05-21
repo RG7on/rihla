@@ -18,44 +18,94 @@ class _BookingPageState extends State<BookingPage> {
   List<Map<String, dynamic>> _travelerDetails = [];
 
   @override
-  void initState() {
+    void initState() {
     super.initState();
-    _travelerDetails = List.generate(
-        _numberOfTravelers,
-        (index) => {
-              'fullName': '',
-              'phoneNumber': '',
-              'gender': 'Male',
-              'pickupLocation': ''
-            });
+    _generateTravelerDetails();
   }
 
-  void _submitBooking() async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
+  void _generateTravelerDetails() {
+    _travelerDetails = List.generate(
+      _numberOfTravelers,
+      (index) => {
+        'fullName': '',
+        'phoneNumber': '',
+        'gender': 'Male',
+        'pickupLocation': ''
+      },
+    );
+  }
 
-      try {
-        final userId = FirebaseAuth.instance.currentUser!.uid;
+  void _updateNumberOfTravelers(String value) {
+    final int numberOfTravelers = int.tryParse(value) ?? 1;
+    setState(() {
+      _numberOfTravelers = numberOfTravelers;
+      _generateTravelerDetails();
+    });
+  }
 
-        await FirebaseFirestore.instance.collection('Bookings').add({
-          'userId': userId,
-          'tripId': widget.tripId,
-          'numberOfTravelers': _numberOfTravelers,
-          'travelerDetails': _travelerDetails,
-          'bookingDate': DateTime.now(),
-        });
+void _submitBooking() async {
+  if (_formKey.currentState!.validate()) {
+    _formKey.currentState!.save();
 
-        Navigator.pop(context);
+    try {
+      final userId = FirebaseAuth.instance.currentUser!.uid;
+
+      // Get the current trip document
+      DocumentSnapshot tripSnapshot = await FirebaseFirestore.instance
+          .collection('Trips')
+          .doc(widget.tripId)
+          .get();
+
+      if (tripSnapshot.exists) {
+        // Get the current seats available
+        int seatsAvailable = tripSnapshot['seatsAvailable'];
+
+        if (seatsAvailable >= _numberOfTravelers) {
+          // Subtract the number of travelers from seats available
+          seatsAvailable -= _numberOfTravelers;
+
+          // Create a Firestore batch to perform atomic writes
+          WriteBatch batch = FirebaseFirestore.instance.batch();
+
+          // Add booking document
+          DocumentReference bookingRef = FirebaseFirestore.instance.collection('Bookings').doc();
+          batch.set(bookingRef, {
+            'userId': userId,
+            'tripId': widget.tripId,
+            'numberOfTravelers': _numberOfTravelers,
+            'travelerDetails': _travelerDetails,
+            'bookingDate': DateTime.now(),
+          });
+
+          // Update seats available in the trip document
+          DocumentReference tripRef = FirebaseFirestore.instance.collection('Trips').doc(widget.tripId);
+          batch.update(tripRef, {'seatsAvailable': seatsAvailable});
+
+          // Commit the batch
+          await batch.commit();
+
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Booking successful')),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Not enough seats available')),
+          );
+        }
+      } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Booking successful')),
-        );
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Booking failed: $e')),
+          SnackBar(content: Text('Trip not found')),
         );
       }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Booking failed: $e')),
+      );
     }
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +129,8 @@ class _BookingPageState extends State<BookingPage> {
                   return 'Please enter the number of travelers';
                 }
                 return null;
-              },
+               },
+              onChanged: _updateNumberOfTravelers,
               onSaved: (value) {
                 _numberOfTravelers = int.parse(value!);
               },
