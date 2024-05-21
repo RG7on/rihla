@@ -26,6 +26,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
         .collection('Trips')
         .doc(widget.tripId)
         .snapshots();
+    _checkIfFavorite();
   }
 
   void _checkIfFavorite() async {
@@ -64,12 +65,20 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Trip Details'),
+        title: Text(
+          'Trip Details',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: GoogleFonts.poppins().fontFamily,
+          ),
+        ),
+        backgroundColor: Color(0xFF341359),
+        iconTheme: IconThemeData(color: Colors.white),
         actions: [
           IconButton(
             icon: Icon(
               _isFavorite ? Icons.favorite : Icons.favorite_border,
-              color: _isFavorite ? Colors.red : null,
+              color: _isFavorite ? Colors.red : Colors.white,
             ),
             onPressed: _toggleFavorite,
           ),
@@ -93,72 +102,179 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
           final tripData = snapshot.data!.data() as Map<String, dynamic>;
 
           return SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.all(16),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    tripData['placesOfVisit'].join(', '),
-                    style: GoogleFonts.robotoCondensed(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      image: DecorationImage(
+                        image: AssetImage('maka.jpeg'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'Departure: ${DateFormat('dd MMM yyyy').format((tripData['departureDate'] as Timestamp).toDate())}',
-                    style: TextStyle(fontSize: 18),
+                    tripData['placesOfVisit'].join(', '),
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                    ),
                   ),
-                  Text(
-                    'Return: ${DateFormat('dd MMM yyyy').format((tripData['returnDate'] as Timestamp).toDate())}',
-                    style: TextStyle(fontSize: 18),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.calendar_today,
+                        color: Color(0xFF341359),
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Departure: ${DateFormat('dd MMM yyyy').format((tripData['departureDate'] as Timestamp).toDate())}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: GoogleFonts.poppins().fontFamily,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.calendar_today,
+                        color: Color(0xFF341359),
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Return: ${DateFormat('dd MMM yyyy').format((tripData['returnDate'] as Timestamp).toDate())}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: GoogleFonts.poppins().fontFamily,
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 16),
                   Text(
                     'Services Offered:',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                    ),
                   ),
+                  SizedBox(height: 8),
                   ...tripData['servicesOffered']
-                      .map((service) => Text(service)),
+                      .map(
+                        (service) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.check_circle,
+                                color: Color(0xFF341359),
+                                size: 18,
+                              ),
+                              SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  service,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily:
+                                        GoogleFonts.poppins().fontFamily,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                      .toList(),
                   SizedBox(height: 16),
                   Text(
                     'Pickup Locations:',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                    ),
                   ),
+                  SizedBox(height: 8),
                   ...tripData['pickupLocations']
-                      .map((location) => Text(location)),
+                      .map(
+                        (location) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.location_on,
+                                color: Color(0xFF341359),
+                                size: 18,
+                              ),
+                              SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  location,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily:
+                                        GoogleFonts.poppins().fontFamily,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                      .toList(),
                   SizedBox(height: 16),
-                  Text(
-                    'Available Seats: ${tripData['seatsAvailable']}',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(height: 32),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Navigate to the booking page with the tripId
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              BookingPage(tripId: widget.tripId),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  BookingPage(tripId: widget.tripId),
+                            ),
+                          );
+                        },
+                        child: Text('Book Now',
+                            style: TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF341359),
+                          textStyle: TextStyle(fontSize: 16),
                         ),
-                      );
-                    },
-                    child: Text('Book Now'),
-                  ),
-                  SizedBox(height: 32),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              ReviewPage(tripId: widget.tripId),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ReviewPage(tripId: widget.tripId),
+                            ),
+                          );
+                        },
+                        child: Text('Write Review',
+                            style: TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF341359),
+                          textStyle: TextStyle(fontSize: 16),
                         ),
-                      );
-                    },
-                    child: Text('Write Review'),
+                      ),
+                    ],
                   ),
                 ],
               ),
