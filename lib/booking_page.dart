@@ -17,6 +17,62 @@ class _BookingPageState extends State<BookingPage> {
   int _numberOfTravelers = 1;
   List<Map<String, dynamic>> _travelerDetails = [];
 
+  final List<String> _locations = [
+    'Ibri',
+    'Yanqul',
+    'Dhank',
+    'Sohar',
+    'Shinas',
+    'Liwa',
+    'Saham',
+    'Al Khaburah',
+    'As Suwayq',
+    'Rustaq',
+    'Al Awabi',
+    'Nakhal',
+    'Wadi Al Maawil',
+    'Barka',
+    'Al Musanaah',
+    'Al Buraimi',
+    'Mahdah',
+    'Al Sinaina',
+    'Haima',
+    'Mahout',
+    'Duqm',
+    'Al Jazir',
+    'Ibra',
+    'Al Mudaybi',
+    'Bidiya',
+    'Al Qabil',
+    'Wadi Bani Khalid',
+    'Dima Wa Al-Taien',
+    'Sur',
+    'Al Kamil Wal Wafi',
+    'Jalan Bani Bu Hassan',
+    'Jalan Bani Bu Ali',
+    'Masirah',
+    'Salalah',
+    'Taqah',
+    'Mirbat',
+    'Rakhyut',
+    'Thumrait',
+    'Shalim and the Hallaniyat Islands',
+    'Al Mazyona',
+    'Dhalkut',
+    'Al Muqshin',
+    'Sadah',
+    'Khasab',
+    'Bukha',
+    'Daba Al Bayah',
+    'Madha',
+    'Muscat',
+    'Muttrah',
+    'Baushar',
+    'As Seeb',
+    'Al Amrat',
+    'Qurayyat'
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -30,7 +86,7 @@ class _BookingPageState extends State<BookingPage> {
         'fullName': '',
         'phoneNumber': '',
         'gender': 'Male',
-        'pickupLocation': ''
+        'pickupLocation': _locations.first // Default to the first location
       },
     );
   }
@@ -245,7 +301,8 @@ class _BookingPageState extends State<BookingPage> {
                       },
                     ),
                     SizedBox(height: 8.0),
-                    TextFormField(
+                    DropdownButtonFormField<String>(
+                      value: _travelerDetails[index]['pickupLocation'],
                       decoration: InputDecoration(
                         hintText: 'Pickup Location',
                         border: OutlineInputBorder(
@@ -253,14 +310,19 @@ class _BookingPageState extends State<BookingPage> {
                           borderSide: BorderSide(color: Color(0xFF341359)),
                         ),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter the pickup location';
-                        }
-                        return null;
+                      items: _locations
+                          .map((location) => DropdownMenuItem(
+                                value: location,
+                                child: Text(location),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _travelerDetails[index]['pickupLocation'] = value!;
+                        });
                       },
                       onSaved: (value) {
-                        _travelerDetails[index]['pickupLocation'] = value;
+                        _travelerDetails[index]['pickupLocation'] = value!;
                       },
                     ),
                     SizedBox(height: 16.0),

@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
                         },
                       ),
-                      label: Opacity(
+                      label: const Opacity(
                           opacity: 0.4,
                           child: Text(
                             'Password',
