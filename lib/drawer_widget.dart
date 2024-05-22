@@ -13,7 +13,7 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
+          const DrawerHeader(
             decoration: BoxDecoration(
               color: Colors.purple,
             ),
@@ -27,7 +27,7 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.search),
-            title: Text('Home'),
+            title: Text('Search'),
             onTap: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => HomeScreen()));

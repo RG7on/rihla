@@ -14,13 +14,70 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  TextEditingController locationController = TextEditingController();
   TextEditingController travelersController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  String? selectedLocation; // Added for dropdown
 
   bool visitMakkah = false;
   bool visitMadina = false;
   DateTime? departureDate;
+
+  // List of locations for the dropdown
+  final List<String> locations = [
+    "Ibri",
+    "Yanqul",
+    "Dhank",
+    "Sohar",
+    "Shinas",
+    "Liwa",
+    "Saham",
+    "Al Khaburah",
+    "As Suwayq",
+    "Rustaq",
+    "Al Awabi",
+    "Nakhal",
+    "Wadi Al Maawil",
+    "Barka",
+    "Al Musanaah",
+    "Al Buraimi",
+    "Mahdah",
+    "Al Sinaina",
+    "Haima",
+    "Mahout",
+    "Duqm",
+    "Al Jazir",
+    "Ibra",
+    "Al Mudaybi",
+    "Bidiya",
+    "Al Qabil",
+    "Wadi Bani Khalid",
+    "Dima Wa Al-Taien",
+    "Sur",
+    "Al Kamil Wal Wafi",
+    "Jalan Bani Bu Hassan",
+    "Jalan Bani Bu Ali",
+    "Masirah",
+    "Salalah",
+    "Taqah",
+    "Mirbat",
+    "Rakhyut",
+    "Thumrait",
+    "Shalim and the Hallaniyat Islands",
+    "Al Mazyona",
+    "Dhalkut",
+    "Al Muqshin",
+    "Sadah",
+    "Khasab",
+    "Bukha",
+    "Daba Al Bayah",
+    "Madha",
+    "Muscat",
+    "Muttrah",
+    "Baushar",
+    "As Seeb",
+    "Al Amrat",
+    "Qurayyat"
+  ];
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -37,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _searchTrips() async {
-    if (locationController.text.isEmpty ||
+    if (selectedLocation == null ||
         dateController.text.isEmpty ||
         travelersController.text.isEmpty) {
       _showDialog('Error', 'Please fill in all fields to continue.');
@@ -51,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('Trips')
+          .where('pickupLocations', arrayContains: selectedLocation)
           .where('placesOfVisit', arrayContainsAny: destinations.split(' '))
           .where('departureDate', isGreaterThanOrEqualTo: departureDate)
           .where('seatsAvailable',
@@ -58,7 +116,6 @@ class _HomeScreenState extends State<HomeScreen> {
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
-        // Navigate to the TripDetailsPage with the first matching trip
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -82,7 +139,6 @@ class _HomeScreenState extends State<HomeScreen> {
           await FirebaseFirestore.instance.collection('Trips').get();
 
       if (querySnapshot.docs.isNotEmpty) {
-        // Navigate to a new screen that displays all the available trips
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -109,9 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: <Widget>[
             TextButton(
               child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: () => Navigator.of(context).pop(),
             ),
           ],
         );
@@ -123,16 +177,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Serch"),
+        title: const Text("Search Trips"),
       ),
       drawer: const AppDrawer(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF5D427A),
-              Color(0xFF341359),
-            ],
+            colors: [Color(0xFF5D427A), Color(0xFF341359)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -165,10 +216,29 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            _buildTextField(
-                                locationController,
-                                'Place collecting passengers',
-                                Icons.location_on),
+                            DropdownButtonFormField<String>(
+                              value: selectedLocation,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  selectedLocation = newValue;
+                                });
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Select Pickup Location',
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide: BorderSide(color: Colors.black54),
+                                ),
+                              ),
+                              items: locations.map((location) {
+                                return DropdownMenuItem(
+                                  child: Text(location),
+                                  value: location,
+                                );
+                              }).toList(),
+                            ),
                             SizedBox(height: 16),
                             _buildDateField(),
                             SizedBox(height: 16),
@@ -222,9 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             SizedBox(height: 16),
                             OutlinedButton(
-                              onPressed: () {
-                                _exploreTrips();
-                              }, // Define what happens when 'Explore' is tapped
+                              onPressed: _exploreTrips,
                               child: Text(
                                 'Explore',
                                 style: GoogleFonts.robotoCondensed(
@@ -303,48 +371,6 @@ class _HomeScreenState extends State<HomeScreen> {
         controlAffinity: ListTileControlAffinity.leading,
         checkColor: Color(0xFF5D427A),
         activeColor: Colors.white,
-      ),
-    );
-  }
-
-  Widget _buildSearchButton() {
-    return ElevatedButton(
-      onPressed: () {},
-      child: Text(
-        'Search',
-        style: GoogleFonts.robotoCondensed(
-          fontSize: 20,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFF5D427A),
-        minimumSize: Size(double.infinity, 55),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildExploreButton() {
-    return OutlinedButton(
-      onPressed: () {}, // Define what happens when 'Explore' is tapped
-      child: Text(
-        'Explore',
-        style: GoogleFonts.robotoCondensed(
-          fontSize: 20,
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      style: OutlinedButton.styleFrom(
-        side: BorderSide(color: Colors.black, width: 2),
-        minimumSize: Size(double.infinity, 55),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
       ),
     );
   }
