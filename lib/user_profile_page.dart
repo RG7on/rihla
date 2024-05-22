@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rihla/drawer_widget.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:rihla/drawer_widget.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({Key? key}) : super(key: key);
@@ -64,6 +64,26 @@ class _UserProfilePageState extends State<UserProfilePage> {
       } finally {
         setState(() => _isLoading = false);
       }
+    }
+  }
+
+  Future<void> _deleteAccount() async {
+    try {
+      setState(() => _isLoading = true);
+      // Delete user data from Firestore if needed
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(user.uid)
+          .delete();
+      // Delete the user
+      await user.delete();
+      Navigator.of(context)
+          .pushReplacementNamed('/login'); // Assuming you have a login route
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to delete account: ${e.message}')));
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
@@ -193,6 +213,23 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: GoogleFonts.poppins().fontFamily,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: _deleteAccount,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 32.0,
+                          vertical: 12.0,
+                        ),
+                      ),
+                      child: const Text(
+                        'Delete Account',
+                        style: TextStyle(
+                          color: Colors.white,
                           fontSize: 16,
                         ),
                       ),
