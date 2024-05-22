@@ -139,6 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
           await FirebaseFirestore.instance.collection('Trips').get();
 
       if (querySnapshot.docs.isNotEmpty) {
+        // Navigate to a new screen that displays all the available trips
         Navigator.push(
           context,
           MaterialPageRoute(
