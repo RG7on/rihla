@@ -112,7 +112,7 @@ class _TripDetailsPageState extends State<TripDetailsPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       image: DecorationImage(
-                        image: AssetImage('maka.jpeg'),
+                        image: AssetImage('assets/maka.jpeg'),
                         fit: BoxFit.cover,
                       ),
                     ),

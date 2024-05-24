@@ -137,7 +137,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                                       fit: BoxFit.cover,
                                     )
                                   : Image.asset(
-                                      'user.png',
+                                      'assets/user.png',
                                       width: 120,
                                       height: 120,
                                       fit: BoxFit.cover,
